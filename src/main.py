@@ -35,7 +35,8 @@ def drawTimer(sec, fore, back):
 
 # check if the device woke from a deep sleep
 if machine.reset_cause() != machine.PWRON_RESET:
-    machine.deepsleep(60000)
+    machine.Pin(25, machine.Pin.OUT, value=0)
+    machine.deepsleep(600000)
 
 lcd = l.LCD_0inch96()
 
@@ -44,10 +45,8 @@ drawTimer(5*60, l.GREEN, l.BLUE)
 
 lcd.fill(l.BLUE)
 lcd.display()
-
-# LCD power off
 lcd.backlight(0)
-lcd.write_cmd(0x10)  
 
-# MCU power off
-machine.deepsleep(60000)
+lcd.write_cmd(0x10)  # power off
+
+machine.deepsleep(600000)
